@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Personal Blog</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- Google Fonts - Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -27,40 +30,12 @@
         }
         ::-webkit-scrollbar-thumb:hover {
             background: #555;
-        }
-        /* Styles for main content sections */
-        .main-content-section {
-            background-color: #ffffff;
-            padding: 2.5rem; /* Increased padding */
-            border-radius: 1.25rem; /* More rounded corners */
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); /* Stronger shadow */
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-        .main-content-section:hover {
-            transform: translateY(-5px); /* Lift effect on hover */
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
-        }
-        .blog-post-card {
-            background-color: #ffffff;
-            padding: 1.5rem;
-            border-radius: 1rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-        .blog-post-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-        }
-        .btn-primary {
-            @apply inline-block bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition duration-300 shadow-md font-medium;
-        }
-        .btn-secondary {
-            @apply inline-block bg-gray-200 text-gray-800 px-6 py-3 rounded-lg hover:bg-gray-300 transition duration-300 shadow-sm font-medium;
+            cursor: pointer;
         }
 
-        /* Specific styles for the fixed sidebar */
+        /* Fixed Sidebar Styles */
         .sidebar {
-            width: 256px; /* Fixed width for sidebar (64 units in Tailwind) */
+            width: 250px; /* Fixed width for sidebar */
             min-height: 100vh; /* Ensure it takes full height */
             position: fixed;
             top: 0;
@@ -71,292 +46,705 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            z-index: 50; /* Ensure it's above other content */
+            z-index: 1030; /* Bootstrap's z-index for fixed elements */
         }
 
         /* Adjust main content margin for sidebar */
         .main-content-wrapper {
-            margin-left: 256px; /* Same as sidebar width */
-            padding-top: 2.5rem; /* Add some top padding */
+            margin-left: 250px; /* Same as sidebar width */
+            padding-top: 2rem; /* Add some top padding */
         }
 
         /* Mobile adjustments */
-        @media (max-width: 1023px) { /* lg breakpoint */
+        @media (max-width: 991.98px) { /* Bootstrap's lg breakpoint */
             .sidebar {
                 display: none; /* Hide sidebar on small screens by default */
             }
             .main-content-wrapper {
                 margin-left: 0; /* Remove margin on small screens */
             }
+            .navbar-toggler {
+                display: block; /* Show toggler on mobile */
+            }
+            .mobile-header {
+                display: block; /* Show mobile header */
+            }
+        }
+        @media (min-width: 992px) { /* Bootstrap's lg breakpoint */
+            .mobile-header {
+                display: none; /* Hide mobile header on desktop */
+            }
+        }
+
+        /* Custom card styles for blog posts */
+        .blog-post-card {
+            background-color: #ffffff;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border: none; /* Remove default Bootstrap card border */
+        }
+        .blog-post-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+        }
+
+        .section-card {
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border: none;
+        }
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Custom button styles */
+        .btn-primary-custom {
+            background-color: #4f46e5; /* Indigo-600 */
+            border-color: #4f46e5;
+            color: #fff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .btn-primary-custom:hover {
+            background-color: #4338ca; /* Indigo-700 */
+            border-color: #4338ca;
+            color: #fff;
+            box-shadow: 0 4px 8px rgba(79, 70, 229, 0.2);
+        }
+        .btn-secondary-custom {
+            background-color: #e5e7eb; /* Gray-200 */
+            border-color: #e5e7eb;
+            color: #374151; /* Gray-800 */
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .btn-secondary-custom:hover {
+            background-color: #d1d5db; /* Gray-300 */
+            border-color: #d1d5db;
+            color: #374151;
+            box-shadow: 0 4px 8px rgba(107, 114, 128, 0.1);
+        }
+        .btn-outline-primary-custom {
+            border: 1px solid #4f46e5;
+            color: #4f46e5;
+            background-color: transparent;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease-in-out;
+        }
+        .btn-outline-primary-custom:hover {
+            background-color: #4f46e5;
+            color: #fff;
+        }
+
+        /* Line clamping for blog post snippets */
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
     </style>
 </head>
-<body class="text-gray-800">
+<body>
+
+    <!-- Mobile Header (visible on small screens) -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mobile-header fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand text-primary fw-bold fs-3" href="#">My Blog</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title text-primary fw-bold fs-3" id="offcanvasNavbarLabel">My Blog</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <a class="nav-link fs-4 fw-bold text-dark" href="#about" data-bs-dismiss="offcanvas">ABOUT ME</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-4 fw-bold text-dark" href="#blogs" data-bs-dismiss="offcanvas">BLOGS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-4 fw-bold text-dark" href="#signup" data-bs-dismiss="offcanvas">SIGN UP</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
 
     <!-- Main Container for Sidebar and Content -->
-    <div class="flex flex-col lg:flex-row">
+    <div class="d-flex">
 
         <!-- Left Sidebar (fixed, hidden on mobile by default, shown on large screens) -->
-        <nav class="sidebar hidden lg:flex">
+        <nav class="sidebar d-none d-lg-flex flex-column">
             <!-- Profile Image -->
-            <div class="mb-8 text-center">
-                <img src="https://placehold.co/150x150/667EEA/FFFFFF?text=Your+Photo" alt="Your Profile Photo" class="w-36 h-36 rounded-full object-cover border-4 border-indigo-300 shadow-lg mx-auto mb-4">
-                <h2 class="text-2xl font-bold text-gray-900">My Blog</h2>
-                <p class="text-sm text-gray-600">Template by W3.CSS</p>
+            <div class="mb-4 text-center">
+                <img src="https://placehold.co/150x150/667EEA/FFFFFF?text=Your+Photo" alt="Your Profile Photo" class="img-fluid rounded-circle border border-4 border-primary shadow-lg mx-auto mb-3">
+                <h2 class="h5 fw-bold text-dark">My Blog</h2>
+                <p class="text-muted small">Template by W3.CSS</p>
+            </div>
+
+            <!-- Small Signup Form -->
+            <div class="card shadow-sm p-3 mb-4 w-100 rounded-lg">
+                <h6 class="card-title fw-bold text-center mb-3">Stay Updated!</h6>
+                <form id="sidebar-signup-form">
+                    <div class="mb-2">
+                        <input type="email" class="form-control form-control-sm rounded-pill" placeholder="Your Email" aria-label="Email for newsletter signup">
+                    </div>
+                    <button type="submit" class="btn btn-primary-custom btn-sm w-100 rounded-pill">Subscribe</button>
+                </form>
+                <div id="sidebar-signup-message" class="text-success small mt-2 text-center d-none">Subscribed!</div>
+            </div>
+
+            <!-- "Welcome to My Blog" Description -->
+            <div class="card shadow-sm p-3 mb-4 w-100 rounded-lg">
+                <h5 class="card-title fw-bold text-dark text-center mb-3">Welcome to My Blog!</h5>
+                <p class="card-text text-muted small text-center">
+                    Hello! I'm [Your Name], and this is my digital space where I delve into the fascinating intersections of [Your Primary Interest], [Your Secondary Interest], and [Your Tertiary Interest].
+                </p>
+                <p class="card-text text-muted small text-center">
+                    I'm dedicated to [Your Core Mission/Goal]. Join me as I share my discoveries and perspectives.
+                </p>
             </div>
 
             <!-- Navigation Links -->
-            <ul class="w-full text-left space-y-3 mb-8">
-                <li>
-                    <a href="#about" class="flex items-center p-3 rounded-lg text-gray-700 hover:bg-indigo-100 hover:text-indigo-700 transition duration-300 font-medium">
-                        <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.29-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.93-3.5 3.22-6 3.22z"/></svg>
-                        ABOUT ME
+            <ul class="nav flex-column w-100 mb-4">
+                <li class="nav-item">
+                    <a href="#about-section" class="nav-link d-flex align-items-center p-3 rounded-lg text-dark fw-medium hover-bg-light hover-text-primary">
+                        <i class="fas fa-user me-3"></i> ABOUT ME
                     </a>
                 </li>
-                <li>
-                    <a href="#blogs" class="flex items-center p-3 rounded-lg text-gray-700 hover:bg-indigo-100 hover:text-indigo-700 transition duration-300 font-medium">
-                        <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
-                        BLOGS
+                <li class="nav-item">
+                    <a href="#blogs-section" class="nav-link d-flex align-items-center p-3 rounded-lg text-dark fw-medium hover-bg-light hover-text-primary">
+                        <i class="fas fa-blog me-3"></i> BLOGS
                     </a>
                 </li>
-                <li>
-                    <a href="#signup" class="flex items-center p-3 rounded-lg text-gray-700 hover:bg-indigo-100 hover:text-indigo-700 transition duration-300 font-medium">
-                        <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                        SIGN UP
+                <li class="nav-item">
+                    <a href="#signup-section" class="nav-link d-flex align-items-center p-3 rounded-lg text-dark fw-medium hover-bg-light hover-text-primary">
+                        <i class="fas fa-envelope me-3"></i> SIGN UP
                     </a>
                 </li>
             </ul>
 
             <!-- Social Media Icons -->
-            <div class="mt-auto flex justify-center space-x-4 pb-4">
-                <a href="#" class="text-gray-500 hover:text-indigo-600 transition duration-300">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.499.09.679-.217.679-.481 0-.237-.008-.865-.013-1.706-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.618.069-.606.069-.606 1.003.07 1.531 1.032 1.531 1.032.892 1.529 2.341 1.089 2.91.835.09-.647.35-1.089.636-1.338-2.22-.253-4.555-1.113-4.555-4.953 0-1.096.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.099 2.65 0 .7.39 1.602 1.029 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.579.688.48C19.145 20.18 22 16.425 22 12.017 22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
-                    </svg>
-                </a>
-                <a href="#" class="text-gray-500 hover:text-indigo-600 transition duration-300">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M22 4.01c-.88.39-1.83.65-2.82.77.96-.58 1.7-1.49 2.04-2.58-.9.54-1.9.93-2.96 1.14C17.65 2.79 16.5 2 15.2 2c-2.48 0-4.5 2.02-4.5 4.5 0 .35.04.69.11 1.02-3.74-.19-7.05-1.98-9.27-4.7C1.46 3.84 1.25 4.4 1.25 5.04c0 1.56.79 2.94 1.99 3.75-.74-.02-1.44-.23-2.05-.56v.06c0 2.19 1.56 4.02 3.63 4.43-.38.1-.78.15-1.19.15-.29 0-.57-.03-.84-.08.58 1.81 2.26 3.12 4.25 3.16-1.55 1.21-3.5 1.93-5.63 1.93-.37 0-.73-.02-1.09-.06C2.86 20.08 5.17 21 7.6 21c7.92 0 12.25-6.56 12.25-12.25 0-.19-.01-.38-.01-.57.84-.6 1.56-1.35 2.13-2.21z" />
-                    </svg>
-                </a>
-                <a href="#" class="text-gray-500 hover:text-indigo-600 transition duration-300">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path fill-rule="evenodd" d="M12 2C6.475 2 2 6.475 2 12c0 4.972 3.614 9.062 8.356 9.872.61.113.826-.263.826-.586 0-.288-.01-1.05-.015-2.058-3.504.762-4.244-1.688-4.244-1.688-.572-1.452-1.392-1.838-1.392-1.838-1.13-.77.086-.754.086-.754 1.248.088 1.902 1.283 1.902 1.283 1.106 1.902 2.902 1.352 3.602 1.03.112-.8.432-1.352.788-1.662-2.76-.314-5.66-1.38-5.66-6.148 0-1.358.485-2.462 1.285-3.332-.13-.314-.558-1.57.124-3.272 0 0 1.048-.334 3.424 1.272.998-.278 2.062-.418 3.12-.422 1.058.004 2.122.144 3.12.422 2.374-1.606 3.422-1.272 3.422-1.272.682 1.702.254 2.958.124 3.272.802.87 1.284 1.974 1.284 3.332 0 4.78-2.9 5.832-5.668 6.138.442.38.823 1.102.823 2.222 0 1.606-.015 2.898-.015 3.298 0 .326.214.706.836.582C18.388 21.062 22 16.425 22 12 22 6.475 17.525 2 12 2z" clip-rule="evenodd" />
-                    </svg>
-                </a>
+            <div class="mt-auto d-flex justify-content-center space-x-3 pb-3">
+                <a href="#" class="text-muted hover-text-primary fs-5"><i class="fab fa-github"></i></a>
+                <a href="#" class="text-muted hover-text-primary fs-5"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-muted hover-text-primary fs-5"><i class="fab fa-linkedin-in"></i></a>
             </div>
         </nav>
 
-        <!-- Mobile Header (visible on small screens, replaces fixed sidebar) -->
-        <header class="bg-white shadow-lg py-4 px-4 md:px-8 sticky top-0 z-50 rounded-b-xl lg:hidden">
-            <nav class="container mx-auto flex justify-between items-center">
-                <a href="#" class="text-3xl font-extrabold text-indigo-700">My Blog</a>
-                <!-- Mobile Menu Button -->
-                <button id="mobile-menu-button" class="text-gray-700 focus:outline-none">
-                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
-            </nav>
-        </header>
-
-        <!-- Mobile Menu Overlay (for when mobile menu button is clicked) -->
-        <div id="mobile-menu" class="hidden fixed inset-0 bg-gray-900 bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-10">
-            <button id="close-mobile-menu" class="absolute top-6 right-6 text-white text-4xl focus:outline-none">
-                &times;
-            </button>
-            <a href="#about" class="text-white text-4xl font-bold hover:text-indigo-400 transition duration-300" onclick="document.getElementById('mobile-menu').classList.add('hidden')">ABOUT ME</a>
-            <a href="#blogs" class="text-white text-4xl font-bold hover:text-indigo-400 transition duration-300" onclick="document.getElementById('mobile-menu').classList.add('hidden')">BLOGS</a>
-            <a href="#signup" class="text-white text-4xl font-bold hover:text-indigo-400 transition duration-300" onclick="document.getElementById('mobile-menu').classList.add('hidden')">SIGN UP</a>
-        </div>
-
         <!-- Main Content Area (takes remaining width, scrollable) -->
-        <div class="flex-grow main-content-wrapper min-h-screen">
-            <main class="container mx-auto px-4 md:px-8 py-10">
+        <div class="flex-grow-1 main-content-wrapper">
+            <main class="container py-4">
 
-                <!-- Introduction Section (Now more focused on the longer intro) -->
-                <section id="about" class="main-content-section mb-10">
-                    <h1 class="text-4xl font-extrabold text-gray-900 mb-4 leading-tight text-center lg:text-left">Welcome to My Blog!</h1>
-                    <p class="text-lg text-gray-700 leading-relaxed mb-4">
-                        Hello! I'm [Your Name], and this is my digital space where I delve into the fascinating intersections of [Your Primary Interest, e.g., technology], [Your Secondary Interest, e.g., creativity], and [Your Tertiary Interest, e.g., personal growth]. My journey began [briefly mention how you started/your passion] and since then, I've been dedicated to [Your Core Mission/Goal, e.g., demystifying complex concepts, sharing practical insights, fostering a community of learners].
-                    </p>
-                    <p class="text-md text-gray-600 leading-relaxed mb-6">
-                        Beyond writing, I am also a [Your Profession/Role, e.g., software engineer, digital artist, environmental advocate] with a keen interest in [Specific Area of Expertise]. This blog serves as a platform for me to share my discoveries, experiments, and perspectives, hoping to spark curiosity and inspire positive change. I believe in continuous learning and sharing knowledge, and I'm excited to have you here.
-                    </p>
-                    <div class="flex justify-center lg:justify-start space-x-4">
-                        <a href="#signup" class="btn-primary">Subscribe to My Newsletter</a>
-                        <a href="#blogs" class="btn-secondary">Read My Latest Posts</a>
+                <!-- About Me Section -->
+                <section id="about-section" class="section-card mb-5">
+                    <h2 class="text-center text-dark fw-bold mb-4">About Me</h2>
+                    <div class="row align-items-center">
+                        <div class="col-md-4 text-center mb-4 mb-md-0">
+                            <img src="https://placehold.co/250x250/667EEA/FFFFFF?text=Your+Photo" alt="Your Profile Photo" class="img-fluid rounded-circle border border-5 border-primary shadow-lg">
+                        </div>
+                        <div class="col-md-8">
+                            <p class="lead text-dark mb-4">
+                                Welcome to my personal blog! I'm [Your Name], and I'm passionate about [Your Primary Interest, e.g., web development]. Here, I share my thoughts, experiences, and insights on various topics that excite me. My goal is to [Your Goal, e.g., inspire, educate, connect with like-minded individuals].
+                            </p>
+                            <p class="text-muted mb-4">
+                                Beyond writing, I am also a [Your Profession/Role, e.g., software engineer, digital artist, environmental advocate] with a keen interest in [Specific Area of Expertise]. This blog serves as a platform for me to share my discoveries, experiments, and perspectives, hoping to spark curiosity and inspire positive change.
+                            </p>
+                            <div class="d-flex justify-content-center justify-content-md-start gap-3">
+                                <a href="#signup-section" class="btn btn-primary-custom">Subscribe to My Newsletter</a>
+                                <a href="#blogs-section" class="btn btn-secondary-custom">Explore My Work</a>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
                 <!-- Blog Posts Section (Grid Layout) -->
-                <section id="blogs" class="mb-10">
-                    <h2 class="text-4xl font-bold text-gray-900 mb-8 text-center">My Latest Blog Posts</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <section id="blogs-section" class="mb-5">
+                    <h2 class="text-center text-dark fw-bold mb-4">My Latest Blog Posts</h2>
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                         <!-- Blog Post 1 -->
-                        <article class="blog-post-card">
-                            <img src="https://placehold.co/600x300/A78BFA/FFFFFF?text=AI+Revolution" alt="Blog Post Image" class="w-full h-48 object-cover rounded-lg mb-4 border border-gray-200">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-2">The Future of AI in Everyday Life: A Deep Dive</h3>
-                            <p class="text-sm text-gray-500 mb-4">By [Your Name] &bull; June 25, 2025</p>
-                            <p class="text-gray-700 text-sm leading-relaxed mb-4 line-clamp-3">
-                                Artificial intelligence is rapidly transforming our world, moving beyond science fiction into tangible applications that impact our daily routines. From smart homes anticipating our needs to personalized recommendations shaping our choices, AI is becoming an integral part of modern living. This post explores some of the most exciting advancements and their implications for the future...
-                            </p>
-                            <a href="#" class="btn-primary text-sm px-4 py-2">Read More</a>
-                        </article>
+                        <div class="col">
+                            <article class="blog-post-card" data-post-id="ai-revolution">
+                                <img src="https://placehold.co/600x300/A78BFA/FFFFFF?text=AI+Revolution" alt="Blog Post Image" class="img-fluid rounded-lg mb-3 border border-light">
+                                <h3 class="h5 fw-bold text-dark mb-2">The Future of AI in Everyday Life: A Deep Dive</h3>
+                                <p class="text-muted small mb-3">By [Your Name] &bull; June 25, 2025</p>
+                                <p class="text-muted small line-clamp-3 mb-3">
+                                    Artificial intelligence is rapidly transforming our world, moving beyond science fiction into tangible applications that impact our daily routines. From smart homes anticipating our needs to personalized recommendations shaping our choices, AI is becoming an integral part of modern living. This post explores some of the most exciting advancements and their implications for the future...
+                                </p>
+                                <button class="btn btn-primary-custom btn-sm read-more-btn">Read More</button>
+                            </article>
+                        </div>
 
                         <!-- Blog Post 2 -->
-                        <article class="blog-post-card">
-                            <img src="https://placehold.co/600x300/FDBA74/FFFFFF?text=Remote+Work" alt="Blog Post Image" class="w-full h-48 object-cover rounded-lg mb-4 border border-gray-200">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Mastering Remote Work Productivity: Tips for Success</h3>
-                            <p class="text-sm text-gray-500 mb-4">By [Your Name] &bull; June 20, 2025</p>
-                            <p class="text-gray-700 text-sm leading-relaxed mb-4 line-clamp-3">
-                                Remote work offers unparalleled flexibility, but it also comes with unique challenges, from maintaining focus amidst distractions to fostering team collaboration across distances. Discover practical tips and strategies to boost your productivity, manage your time effectively, and maintain a healthy work-life balance in a distributed environment...
-                            </p>
-                            <a href="#" class="btn-primary text-sm px-4 py-2">Read More</a>
-                        </article>
+                        <div class="col">
+                            <article class="blog-post-card" data-post-id="remote-work">
+                                <img src="https://placehold.co/600x300/FDBA74/FFFFFF?text=Remote+Work" alt="Blog Post Image" class="img-fluid rounded-lg mb-3 border border-light">
+                                <h3 class="h5 fw-bold text-dark mb-2">Mastering Remote Work Productivity: Tips for Success</h3>
+                                <p class="text-muted small mb-3">By [Your Name] &bull; June 20, 2025</p>
+                                <p class="text-muted small line-clamp-3 mb-3">
+                                    Remote work offers unparalleled flexibility, but it also comes with unique challenges, from maintaining focus amidst distractions to fostering team collaboration across distances. Discover practical tips and strategies to boost your productivity, manage your time effectively, and maintain a healthy work-life balance in a distributed environment...
+                                </p>
+                                <button class="btn btn-primary-custom btn-sm read-more-btn">Read More</button>
+                            </article>
+                        </div>
 
                         <!-- Blog Post 3 -->
-                        <article class="blog-post-card">
-                            <img src="https://placehold.co/600x300/6EE7B7/FFFFFF?text=Sustainable+Living" alt="Blog Post Image" class="w-full h-48 object-cover rounded-lg mb-4 border border-gray-200">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-2">My Journey into Sustainable Living: Small Steps, Big Impact</h3>
-                            <p class="text-sm text-gray-500 mb-4">By [Your Name] &bull; June 15, 2025</p>
-                            <p class="text-gray-700 text-sm leading-relaxed mb-4 line-clamp-3">
-                                Embarking on a sustainable lifestyle can seem daunting, but every small step counts towards making a significant positive impact on our planet. Join me as I share my personal journey, the challenges I've faced, and the triumphs I've celebrated in reducing my environmental footprint, from conscious consumption to eco-friendly habits...
-                            </p>
-                            <a href="#" class="btn-primary text-sm px-4 py-2">Read More</a>
-                        </article>
+                        <div class="col">
+                            <article class="blog-post-card" data-post-id="sustainable-living">
+                                <img src="https://placehold.co/600x300/6EE7B7/FFFFFF?text=Sustainable+Living" alt="Blog Post Image" class="img-fluid rounded-lg mb-3 border border-light">
+                                <h3 class="h5 fw-bold text-dark mb-2">My Journey into Sustainable Living: Small Steps, Big Impact</h3>
+                                <p class="text-muted small mb-3">By [Your Name] &bull; June 15, 2025</p>
+                                <p class="text-muted small line-clamp-3 mb-3">
+                                    Embarking on a sustainable lifestyle can seem daunting, but every small step counts towards making a significant positive impact on our planet. Join me as I share my personal journey, the challenges I've faced, and the triumphs I've celebrated in reducing my environmental footprint, from conscious consumption to eco-friendly habits...
+                                </p>
+                                <button class="btn btn-primary-custom btn-sm read-more-btn">Read More</button>
+                            </article>
+                        </div>
 
                         <!-- Blog Post 4 -->
-                        <article class="blog-post-card">
-                            <img src="https://placehold.co/600x300/C4B5FD/FFFFFF?text=Creative+Coding" alt="Blog Post Image" class="w-full h-48 object-cover rounded-lg mb-4 border border-gray-200">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Exploring Creative Coding with JavaScript</h3>
-                            <p class="text-sm text-gray-500 mb-4">By [Your Name] &bull; June 10, 2025</p>
-                            <p class="text-gray-700 text-sm leading-relaxed mb-4 line-clamp-3">
-                                Creative coding is an art form where code is used to generate visuals, animations, and interactive experiences. In this post, I'll dive into how you can use JavaScript and libraries like p5.js to bring your artistic visions to life, even if you're a beginner. Let's make some digital art!
-                            </p>
-                            <a href="#" class="btn-primary text-sm px-4 py-2">Read More</a>
-                        </article>
+                        <div class="col">
+                            <article class="blog-post-card" data-post-id="creative-coding">
+                                <img src="https://placehold.co/600x300/C4B5FD/FFFFFF?text=Creative+Coding" alt="Blog Post Image" class="img-fluid rounded-lg mb-3 border border-light">
+                                <h3 class="h5 fw-bold text-dark mb-2">Exploring Creative Coding with JavaScript</h3>
+                                <p class="text-muted small mb-3">By [Your Name] &bull; June 10, 2025</p>
+                                <p class="text-muted small line-clamp-3 mb-3">
+                                    Creative coding is an art form where code is used to generate visuals, animations, and interactive experiences. In this post, I'll dive into how you can use JavaScript and libraries like p5.js to bring your artistic visions to life, even if you're a beginner. Let's make some digital art!
+                                </p>
+                                <button class="btn btn-primary-custom btn-sm read-more-btn">Read More</button>
+                            </article>
+                        </div>
 
                         <!-- Blog Post 5 -->
-                        <article class="blog-post-card">
-                            <img src="https://placehold.co/600x300/FFD700/FFFFFF?text=Travel+Adventures" alt="Blog Post Image" class="w-full h-48 object-cover rounded-lg mb-4 border border-gray-200">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-2">My Top 5 Travel Adventures of the Year</h3>
-                            <p class="text-sm text-gray-500 mb-4">By [Your Name] &bull; June 05, 2025</p>
-                            <p class="text-gray-700 text-sm leading-relaxed mb-4 line-clamp-3">
-                                Travel has always been a source of inspiration and growth for me. This year, I embarked on several unforgettable journeys that broadened my horizons and filled me with incredible memories. Here are my top five adventures and what made them so special...
-                            </p>
-                            <a href="#" class="btn-primary text-sm px-4 py-2">Read More</a>
-                        </article>
+                        <div class="col">
+                            <article class="blog-post-card" data-post-id="travel-adventures">
+                                <img src="https://placehold.co/600x300/FFD700/FFFFFF?text=Travel+Adventures" alt="Blog Post Image" class="img-fluid rounded-lg mb-3 border border-light">
+                                <h3 class="h5 fw-bold text-dark mb-2">My Top 5 Travel Adventures of the Year</h3>
+                                <p class="text-muted small mb-3">By [Your Name] &bull; June 05, 2025</p>
+                                <p class="text-muted small line-clamp-3 mb-3">
+                                    Travel has always been a source of inspiration and growth for me. This year, I embarked on several unforgettable journeys that broadened my horizons and filled me with incredible memories. Here are my top five adventures and what made them so special...
+                                </p>
+                                <button class="btn btn-primary-custom btn-sm read-more-btn">Read More</button>
+                            </article>
+                        </div>
 
                         <!-- Blog Post 6 -->
-                        <article class="blog-post-card">
-                            <img src="https://placehold.co/600x300/87CEEB/FFFFFF?text=Healthy+Eating" alt="Blog Post Image" class="w-full h-48 object-cover rounded-lg mb-4 border border-gray-200">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Simple Steps to Healthier Eating Habits</h3>
-                            <p class="text-sm text-gray-500 mb-4">By [Your Name] &bull; May 30, 2025</p>
-                            <p class="text-gray-700 text-sm leading-relaxed mb-4 line-clamp-3">
-                                Adopting healthier eating habits doesn't have to be complicated. It's often about making small, consistent changes that add up over time. In this post, I share some simple yet effective strategies that have helped me improve my diet and overall well-being...
-                            </p>
-                            <a href="#" class="btn-primary text-sm px-4 py-2">Read More</a>
-                        </article>
+                        <div class="col">
+                            <article class="blog-post-card" data-post-id="healthy-eating">
+                                <img src="https://placehold.co/600x300/87CEEB/FFFFFF?text=Healthy+Eating" alt="Blog Post Image" class="img-fluid rounded-lg mb-3 border border-light">
+                                <h3 class="h5 fw-bold text-dark mb-2">Simple Steps to Healthier Eating Habits</h3>
+                                <p class="text-muted small mb-3">By [Your Name] &bull; May 30, 2025</p>
+                                <p class="text-muted small line-clamp-3 mb-3">
+                                    Adopting healthier eating habits doesn't have to be complicated. It's often about making small, consistent changes that add up over time. In this post, I share some simple yet effective strategies that have helped me improve my diet and overall well-being...
+                                </p>
+                                <button class="btn btn-primary-custom btn-sm read-more-btn">Read More</button>
+                            </article>
+                        </div>
                     </div>
-                    <div class="text-center mt-10">
-                        <a href="#" class="btn-secondary">View All Posts</a>
+                    <div class="text-center mt-4">
+                        <a href="#" class="btn btn-secondary-custom">View All Posts</a>
                     </div>
                 </section>
 
                 <!-- Email Signup Section -->
-                <section id="signup" class="bg-indigo-700 text-white p-10 rounded-xl shadow-lg text-center transform transition-transform duration-300 hover:scale-[1.005]">
-                    <h2 class="text-4xl font-bold mb-4">Join My Community!</h2>
-                    <p class="text-xl mb-8">
+                <section id="signup-section" class="bg-primary text-white p-5 rounded-lg shadow-lg text-center mb-5">
+                    <h2 class="fw-bold mb-3">Join My Community!</h2>
+                    <p class="lead mb-4">
                         Subscribe to my newsletter for exclusive content, early access to new posts, and behind-the-scenes updates. Don't miss out!
                     </p>
-                    <form class="flex flex-col sm:flex-row justify-center items-center space-y-5 sm:space-y-0 sm:space-x-4">
+                    <form class="d-flex flex-column flex-sm-row justify-content-center align-items-center gap-3">
                         <input
                             type="email"
                             placeholder="Enter your email address"
-                            class="w-full sm:w-96 px-6 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-3 focus:ring-indigo-300 transition duration-300 shadow-md text-lg"
+                            class="form-control form-control-lg rounded-pill"
                             aria-label="Email for newsletter signup"
                         >
                         <button
                             type="submit"
-                            class="bg-white text-indigo-700 font-semibold px-10 py-3 rounded-lg hover:bg-indigo-100 transition duration-300 shadow-lg text-lg"
+                            class="btn btn-light text-primary fw-bold px-4 py-2 rounded-pill shadow"
                         >
                             Subscribe Now
                         </button>
                     </form>
-                    <div id="signup-message" class="mt-6 text-green-300 hidden text-lg font-medium">
+                    <div id="signup-message" class="text-success mt-3 d-none">
                         Thank you for subscribing! Check your inbox for a confirmation.
                     </div>
                 </section>
 
+                <!-- Individual Blog Post Pages (Hidden by default) -->
+                <div id="blog-post-details" class="d-none">
+                    <button class="btn btn-outline-primary-custom mb-4" id="back-to-blogs"><i class="fas fa-arrow-left me-2"></i> Back to Blogs</button>
+
+                    <!-- AI Revolution Post -->
+                    <section id="ai-revolution-post" class="main-content-section mb-5 d-none">
+                        <h2 class="text-center text-dark fw-bold mb-4">The Future of AI in Everyday Life: A Deep Dive</h2>
+                        <img src="https://placehold.co/800x400/A78BFA/FFFFFF?text=AI+Revolution+Full" alt="AI Revolution" class="img-fluid rounded-lg mb-4 border border-light">
+                        <p class="lead text-dark mb-4">
+                            Artificial intelligence is rapidly transforming our world, moving beyond science fiction into tangible applications that impact our daily routines. From smart homes anticipating our needs to personalized recommendations shaping our choices, AI is becoming an integral part of modern living. This introductory paragraph will set the stage for a deeper exploration into the current landscape and future potential of AI.
+                        </p>
+
+                        <h3 class="h4 fw-bold text-dark mb-3">Key Definitions</h3>
+                        <ul class="list-group list-group-flush mb-4">
+                            <li class="list-group-item">
+                                <strong>Machine Learning (ML):</strong> A subset of AI that enables systems to learn from data without being explicitly programmed.
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Deep Learning (DL):</strong> A subfield of ML that uses neural networks with multiple layers to learn complex patterns from large amounts of data.
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Natural Language Processing (NLP):</strong> A branch of AI that helps computers understand, interpret, and generate human language.
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Computer Vision (CV):</strong> An AI field that enables computers to "see" and interpret visual information from the world.
+                            </li>
+                        </ul>
+
+                        <h3 class="h4 fw-bold text-dark mb-3">Case Studies</h3>
+                        <div class="mb-4">
+                            <h5 class="fw-semibold text-primary mb-2">Case Study 1: Personalized Healthcare</h5>
+                            <p class="text-muted">
+                                AI algorithms are revolutionizing healthcare by analyzing patient data to predict disease outbreaks, personalize treatment plans, and assist in drug discovery. For instance, AI-powered diagnostic tools can detect early signs of cancer from medical images with higher accuracy than human experts.
+                            </p>
+                        </div>
+                        <div class="mb-4">
+                            <h5 class="fw-semibold text-primary mb-2">Case Study 2: Smart City Management</h5>
+                            <p class="text-muted">
+                                In smart cities, AI is used to optimize traffic flow, manage energy consumption, and enhance public safety. AI-driven sensors and cameras can monitor real-time conditions, allowing city planners to make data-informed decisions for a more efficient and sustainable urban environment.
+                            </p>
+                        </div>
+                        <div class="mb-4">
+                            <h5 class="fw-semibold text-primary mb-2">Case Study 3: Enhanced Customer Experience</h5>
+                            <p class="text-muted">
+                                From chatbots providing instant support to recommendation engines suggesting products, AI significantly enhances customer experience. Companies leverage AI to understand customer behavior, anticipate needs, and deliver tailored interactions, leading to higher satisfaction and loyalty.
+                            </p>
+                        </div>
+
+                        <p class="text-dark">
+                            In conclusion, artificial intelligence is not just a technological trend but a fundamental shift in how we interact with the world. Its pervasive influence promises to redefine industries, improve daily life, and unlock unprecedented possibilities. As AI continues to evolve, understanding its applications and implications will be crucial for navigating the future.
+                        </p>
+                    </section>
+
+                    <!-- Remote Work Post -->
+                    <section id="remote-work-post" class="main-content-section mb-5 d-none">
+                        <h2 class="text-center text-dark fw-bold mb-4">Mastering Remote Work Productivity: Tips for Success</h2>
+                        <img src="https://placehold.co/800x400/FDBA74/FFFFFF?text=Remote+Work+Full" alt="Remote Work" class="img-fluid rounded-lg mb-4 border border-light">
+                        <p class="lead text-dark mb-4">
+                            Remote work offers unparalleled flexibility and autonomy, but it also comes with unique challenges that can impact productivity and well-being. This post delves into effective strategies and practical tips to help you not only survive but thrive in a distributed work environment, ensuring you remain focused, motivated, and connected.
+                        </p>
+
+                        <h3 class="h4 fw-bold text-dark mb-3">Key Definitions</h3>
+                        <ul class="list-group list-group-flush mb-4">
+                            <li class="list-group-item">
+                                <strong>Asynchronous Communication:</strong> Communication that doesn't happen in real-time, allowing individuals to respond at their convenience (e.g., email, project management tools).
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Digital Nomad:</strong> An individual who uses telecommunications technologies to earn a living and typically works remotely from various locations.
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Work-Life Integration:</strong> A philosophy that blurs the lines between work and personal life, allowing for flexibility in how and when tasks are completed.
+                            </li>
+                        </ul>
+
+                        <h3 class="h4 fw-bold text-dark mb-3">Case Studies</h3>
+                        <div class="mb-4">
+                            <h5 class="fw-semibold text-primary mb-2">Case Study 1: The Focused Freelancer</h5>
+                            <p class="text-muted">
+                                Sarah, a freelance graphic designer, struggled with distractions at home. She implemented a strict morning routine, dedicated a specific "office" corner, and used the Pomodoro Technique. This structure significantly boosted her output and reduced burnout.
+                            </p>
+                        </div>
+                        <div class="mb-4">
+                            <h5 class="fw-semibold text-primary mb-2">Case Study 2: The Distributed Team's Success</h5>
+                            <p class="text-muted">
+                                A software development team, fully remote, adopted daily stand-ups via video calls and relied heavily on a shared project management board. They also scheduled weekly "virtual coffee breaks" to maintain team cohesion, proving that strong communication tools and social interaction are key.
+                            </p>
+                        </div>
+                        <div class="mb-4">
+                            <h5 class="fw-semibold text-primary mb-2">Case Study 3: Balancing Parenthood and Remote Work</h5>
+                            <p class="text-muted">
+                                Mark, a parent working remotely, found it challenging to juggle childcare and deadlines. He negotiated flexible hours with his employer, used time-blocking for deep work, and communicated openly about his availability, demonstrating the importance of clear boundaries and employer support.
+                            </p>
+                        </div>
+
+                        <p class="text-dark">
+                            In conclusion, mastering remote work productivity is an ongoing process of adaptation and self-discipline. By establishing clear routines, leveraging the right tools, and prioritizing communication and well-being, you can unlock the full potential of remote work and build a fulfilling and productive professional life from anywhere.
+                        </p>
+                    </section>
+
+                    <!-- Sustainable Living Post -->
+                    <section id="sustainable-living-post" class="main-content-section mb-5 d-none">
+                        <h2 class="text-center text-dark fw-bold mb-4">My Journey into Sustainable Living: Small Steps, Big Impact</h2>
+                        <img src="https://placehold.co/800x400/6EE7B7/FFFFFF?text=Sustainable+Living+Full" alt="Sustainable Living" class="img-fluid rounded-lg mb-4 border border-light">
+                        <p class="lead text-dark mb-4">
+                            Embarking on a sustainable lifestyle can seem daunting, but every small step counts towards making a significant positive impact on our planet. This post chronicles my personal journey, highlighting the challenges I've faced, the lessons I've learned, and the triumphs I've celebrated in reducing my environmental footprint, from conscious consumption to eco-friendly habits.
+                        </p>
+
+                        <h3 class="h4 fw-bold text-dark mb-3">Key Definitions</h3>
+                        <ul class="list-group list-group-flush mb-4">
+                            <li class="list-group-item">
+                                <strong>Carbon Footprint:</strong> The total amount of greenhouse gases (including carbon dioxide and methane) that are generated by our actions.
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Circular Economy:</strong> An economic system aimed at eliminating waste and the continual use of resources.
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Zero Waste:</strong> A philosophy that encourages redesigning resource life cycles so that all products are reused.
+                            </li>
+                        </ul>
+
+                        <h3 class="h4 fw-bold text-dark mb-3">Case Studies</h3>
+                        <div class="mb-4">
+                            <h5 class="fw-semibold text-primary mb-2">Case Study 1: The Composting Convert</h5>
+                            <p class="text-muted">
+                                I started composting all my organic waste. Initially, it felt like a chore, but seeing the rich soil it produced for my small garden was incredibly rewarding. This simple act significantly reduced my household waste sent to landfills.
+                            </p>
+                        </div>
+                        <div class="mb-4">
+                            <h5 class="fw-semibold text-primary mb-2">Case Study 2: Embracing Secondhand Fashion</h5>
+                            <p class="text-muted">
+                                My wardrobe used to be full of fast fashion. I challenged myself to buy only secondhand clothes for a year. Not only did I save money, but I discovered unique pieces and felt good about reducing textile waste and the environmental impact of new clothing production.
+                            </p>
+                        </div>
+                        <div class="mb-4">
+                            <h5 class="fw-semibold text-primary mb-2">Case Study 3: The DIY Cleaning Revolution</h5>
+                            <p class="text-muted">
+                                I replaced most of my chemical cleaning products with homemade solutions using vinegar, baking soda, and essential oils. This not only eliminated harsh chemicals from my home but also drastically cut down on plastic waste from cleaning product bottles.
+                            </p>
+                        </div>
+
+                        <p class="text-dark">
+                            In conclusion, sustainable living is a continuous journey of learning and adapting. It's about making conscious choices that align with environmental responsibility, even if they seem small. By embracing these changes, we contribute to a healthier planet and inspire others to join the movement towards a more sustainable future.
+                        </p>
+                    </section>
+
+                    <!-- Creative Coding Post -->
+                    <section id="creative-coding-post" class="main-content-section mb-5 d-none">
+                        <h2 class="text-center text-dark fw-bold mb-4">Exploring Creative Coding with JavaScript</h2>
+                        <img src="https://placehold.co/800x400/C4B5FD/FFFFFF?text=Creative+Coding+Full" alt="Creative Coding" class="img-fluid rounded-lg mb-4 border border-light">
+                        <p class="lead text-dark mb-4">
+                            Creative coding is an art form where code is used to generate visuals, animations, and interactive experiences. It blurs the lines between art and technology, offering a unique medium for expression. In this post, I'll dive into how you can use JavaScript and libraries like p5.js to bring your artistic visions to life, even if you're a beginner. Let's make some digital art!
+                        </p>
+
+                        <h3 class="h4 fw-bold text-dark mb-3">Key Definitions</h3>
+                        <ul class="list-group list-group-flush mb-4">
+                            <li class="list-group-item">
+                                <strong>p5.js:</strong> A JavaScript library for creative coding, based on the concepts of Processing, designed for artists, designers, educators, and beginners.
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Generative Art:</strong> Art that has been created with the use of an autonomous system, often a computer program.
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Interactive Art:</strong> Art that involves the spectator in a way that allows them to affect or transform the artwork.
+                            </li>
+                        </ul>
+
+                        <h3 class="h4 fw-bold text-dark mb-3">Case Studies</h3>
+                        <div class="mb-4">
+                            <h5 class="fw-semibold text-primary mb-2">Case Study 1: Visualizing Data with D3.js</h5>
+                            <p class="text-muted">
+                                D3.js is a powerful JavaScript library for manipulating documents based on data. Creative coders use it to turn complex datasets into stunning, interactive visualizations, transforming raw numbers into compelling visual narratives.
+                            </p>
+                        </div>
+                        <div class="mb-4">
+                            <h5 class="fw-semibold text-primary mb-2">Case Study 2: Algorithmic Art with Three.js</h5>
+                            <p class="text-muted">
+                                Three.js allows developers to create 3D graphics directly in the browser. Artists leverage its capabilities to generate intricate algorithmic sculptures and immersive virtual environments, pushing the boundaries of digital art.
+                            </p>
+                        </div>
+                        <div class="mb-4">
+                            <h5 class="fw-semibold text-primary mb-2">Case Study 3: Interactive Soundscapes with Tone.js</h5>
+                            <p class="text-muted">
+                                Tone.js is a Web Audio framework for creating interactive music in the browser. Creative coders combine it with visual elements to build dynamic soundscapes that react to user input, blending auditory and visual art forms.
+                            </p>
+                        </div>
+
+                        <p class="text-dark">
+                            In conclusion, creative coding opens up a vast playground for artistic expression, limited only by your imagination. Whether you're interested in data visualization, generative art, or interactive installations, JavaScript and its rich ecosystem of libraries provide the tools to bring your digital creations to life. Start experimenting, and discover the artist within the coder!
+                        </p>
+                    </section>
+
+                    <!-- Travel Adventures Post -->
+                    <section id="travel-adventures-post" class="main-content-section mb-5 d-none">
+                        <h2 class="text-center text-dark fw-bold mb-4">My Top 5 Travel Adventures of the Year</h2>
+                        <img src="https://placehold.co/800x400/FFD700/FFFFFF?text=Travel+Adventures+Full" alt="Travel Adventures" class="img-fluid rounded-lg mb-4 border border-light">
+                        <p class="lead text-dark mb-4">
+                            Travel has always been a profound source of inspiration, learning, and personal growth for me. This year, I embarked on several unforgettable journeys that broadened my horizons, challenged my perspectives, and filled me with incredible memories. Join me as I recount my top five travel adventures and what made each one so uniquely special.
+                        </p>
+
+                        <h3 class="h4 fw-bold text-dark mb-3">Key Definitions</h3>
+                        <ul class="list-group list-group-flush mb-4">
+                            <li class="list-group-item">
+                                <strong>Backpacking:</strong> A form of low-cost, independent travel, typically carrying one's belongings in a backpack.
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Cultural Immersion:</strong> The experience of living and interacting with a local community to understand their way of life.
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Ecotourism:</strong> Responsible travel to natural areas that conserves the environment and improves the well-being of local people.
+                            </li>
+                        </ul>
+
+                        <h3 class="h4 fw-bold text-dark mb-3">Case Studies</h3>
+                        <div class="mb-4">
+                            <h5 class="fw-semibold text-primary mb-2">Case Study 1: Trekking in the Himalayas</h5>
+                            <p class="text-muted">
+                                The sheer scale and beauty of the Himalayan mountains were breathtaking. This trek taught me resilience and the profound peace that comes from disconnecting from the digital world and connecting with nature. The hospitality of the local Sherpa communities was truly heartwarming.
+                            </p>
+                        </div>
+                        <div class="mb-4">
+                            <h5 class="fw-semibold text-primary mb-2">Case Study 2: Exploring Ancient Ruins in Rome</h5>
+                            <p class="text-muted">
+                                Walking through the Colosseum and Roman Forum felt like stepping back in time. The history embedded in every stone was palpable, offering a vivid lesson in ancient civilization and architectural marvels. It was a journey through time and culture.
+                            </p>
+                        </div>
+                        <div class="mb-4">
+                            <h5 class="fw-semibold text-primary mb-2">Case Study 3: Wildlife Safari in Tanzania</h5>
+                            <p class="text-muted">
+                                Witnessing the Great Migration in the Serengeti was an awe-inspiring experience. The raw power of nature and the intricate balance of the ecosystem left an indelible mark. It reinforced the importance of conservation efforts to protect these magnificent creatures.
+                            </p>
+                        </div>
+
+                        <p class="text-dark">
+                            In conclusion, these travel adventures were more than just trips; they were transformative experiences that enriched my life in countless ways. They reminded me of the vastness and beauty of our world, the diversity of human cultures, and the importance of stepping out of our comfort zones to truly live. Here's to many more adventures!
+                        </p>
+                    </section>
+
+                    <!-- Healthy Eating Post -->
+                    <section id="healthy-eating-post" class="main-content-section mb-5 d-none">
+                        <h2 class="text-center text-dark fw-bold mb-4">Simple Steps to Healthier Eating Habits</h2>
+                        <img src="https://placehold.co/800x400/87CEEB/FFFFFF?text=Healthy+Eating+Full" alt="Healthy Eating" class="img-fluid rounded-lg mb-4 border border-light">
+                        <p class="lead text-dark mb-4">
+                            Adopting healthier eating habits doesn't have to be complicated or involve drastic changes. It's often about making small, consistent adjustments that add up over time to significant improvements in your overall well-being. In this post, I share some simple yet effective strategies that have helped me improve my diet and feel more energized and vibrant.
+                        </p>
+
+                        <h3 class="h4 fw-bold text-dark mb-3">Key Definitions</h3>
+                        <ul class="list-group list-group-flush mb-4">
+                            <li class="list-group-item">
+                                <strong>Whole Foods:</strong> Foods that are unprocessed and unrefined, or processed and refined as little as possible, before being consumed.
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Macronutrients:</strong> Nutrients that provide calories or energy (carbohydrates, proteins, and fats).
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Mindful Eating:</strong> Paying full attention to your food—as you buy it, prepare it, serve it, and consume it.
+                            </li>
+                        </ul>
+
+                        <h3 class="h4 fw-bold text-dark mb-3">Case Studies</h3>
+                        <div class="mb-4">
+                            <h5 class="fw-semibold text-primary mb-2">Case Study 1: The Breakfast Overhaul</h5>
+                            <p class="text-muted">
+                                I used to skip breakfast or grab something quick and unhealthy. Switching to overnight oats with fruits and nuts provided sustained energy, reduced mid-morning cravings, and improved my focus throughout the day.
+                            </p>
+                        </div>
+                        <div class="mb-4">
+                            <h5 class="fw-semibold text-primary mb-2">Case Study 2: Hydration First</h5>
+                            <p class="text-muted">
+                                I often confused thirst with hunger. By committing to drinking a large glass of water before every meal and snack, I found myself eating less overall and feeling more satiated, leading to better portion control.
+                            </p>
+                        </div>
+                        <div class="mb-4">
+                            <h5 class="fw-semibold text-primary mb-2">Case Study 3: Smart Snacking</h5>
+                            <p class="text-muted">
+                                Instead of reaching for processed snacks, I started preparing healthy alternatives like sliced apples with peanut butter, Greek yogurt, or a handful of almonds. This curbed unhealthy cravings and provided essential nutrients.
+                            </p>
+                        </div>
+
+                        <p class="text-dark">
+                            In conclusion, adopting healthier eating habits is a journey, not a destination. By focusing on small, actionable steps like these, you can gradually transform your diet, boost your energy levels, and significantly improve your overall health and well-being. Remember, consistency is key, and every healthy choice is a step in the right direction.
+                        </p>
+                    </section>
+
+                </div>
             </main>
 
             <!-- Footer -->
-            <footer class="bg-gray-900 text-white py-8 px-4 md:px-8 text-center rounded-t-xl mt-10">
-                <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
-                    <div>
-                        <h4 class="font-bold text-lg mb-3">My Blog</h4>
-                        <p>&copy; 2025 [Your Name]. All rights reserved.</p>
+            <footer class="bg-dark text-white py-4 text-center mt-5 rounded-top-lg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 mb-3 mb-md-0">
+                            <h5 class="fw-bold mb-2">My Blog</h5>
+                            <p class="small">&copy; 2025 [Your Name]. All rights reserved.</p>
+                        </div>
+                        <div class="col-md-4 mb-3 mb-md-0">
+                            <h5 class="fw-bold mb-2">Quick Links</h5>
+                            <ul class="list-unstyled small">
+                                <li><a href="#about-section" class="text-white text-decoration-none hover-text-primary">About Me</a></li>
+                                <li><a href="#blogs-section" class="text-white text-decoration-none hover-text-primary">All Blogs</a></li>
+                                <li><a href="#signup-section" class="text-white text-decoration-none hover-text-primary">Newsletter</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4">
+                            <h5 class="fw-bold mb-2">Connect</h5>
+                            <ul class="list-unstyled small">
+                                <li><a href="#" class="text-white text-decoration-none hover-text-primary">Email: your.email@example.com</a></li>
+                                <li><a href="#" class="text-white text-decoration-none hover-text-primary">Twitter</a></li>
+                                <li><a href="#" class="text-white text-decoration-none hover-text-primary">LinkedIn</a></li>
+                            </ul>
+                        </div>
                     </div>
-                    <div>
-                        <h4 class="font-bold text-lg mb-3">Quick Links</h4>
-                        <ul class="space-y-1">
-                            <li><a href="#about" class="hover:text-indigo-400 transition duration-300">About Me</a></li>
-                            <li><a href="#blogs" class="hover:text-indigo-400 transition duration-300">All Blogs</a></li>
-                            <li><a href="#signup" class="hover:text-indigo-400 transition duration-300">Newsletter</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-lg mb-3">Connect</h4>
-                        <ul class="space-y-1">
-                            <li><a href="#" class="hover:text-indigo-400 transition duration-300">Email: your.email@example.com</a></li>
-                            <li><a href="#" class="hover:text-indigo-400 transition duration-300">Twitter</a></li>
-                            <li><a href="#" class="hover:text-indigo-400 transition duration-300">LinkedIn</a></li>
-                        </ul>
-                    </div>
+                    <p class="mt-4 text-muted small">Designed with passion and <a href="https://getbootstrap.com/" target="_blank" class="text-primary text-decoration-none hover-underline">Bootstrap</a>.</p>
                 </div>
-                <p class="mt-8 text-xs text-gray-400">Designed with passion and <a href="https://tailwindcss.com/" target="_blank" class="text-indigo-400 hover:underline">Tailwind CSS</a>.</p>
             </footer>
         </div>
     </div>
 
     <!-- Back to Top Button -->
-    <button id="back-to-top" class="fixed bottom-6 right-6 bg-indigo-600 text-white p-3 rounded-full shadow-lg hover:bg-indigo-700 transition duration-300 focus:outline-none hidden">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-        </svg>
+    <button id="back-to-top" class="btn btn-primary-custom rounded-circle shadow-lg d-none" style="position: fixed; bottom: 20px; right: 20px; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
+        <i class="fas fa-arrow-up"></i>
     </button>
 
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
     <script>
-        // JavaScript for mobile menu toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const closeMobileMenu = document.getElementById('close-mobile-menu');
-
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.remove('hidden');
-        });
-
-        closeMobileMenu.addEventListener('click', () => {
-            mobileMenu.classList.add('hidden');
-        });
+        // JavaScript for mobile menu toggle (Bootstrap's Offcanvas handles this)
 
         // Simple form submission (for demonstration, no actual backend)
-        const signupForm = document.querySelector('#signup form');
+        const signupForm = document.querySelector('#signup-section form');
         const signupMessage = document.getElementById('signup-message');
+        const sidebarSignupForm = document.getElementById('sidebar-signup-form');
+        const sidebarSignupMessage = document.getElementById('sidebar-signup-message');
 
         signupForm.addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent default form submission
             const emailInput = this.querySelector('input[type="email"]');
-            if (emailInput.value && emailInput.checkValidity()) { // Check for valid email format
-                signupMessage.classList.remove('hidden');
-                emailInput.value = ''; // Clear the input field
+            if (emailInput.value && emailInput.checkValidity()) {
+                signupMessage.classList.remove('d-none');
+                emailInput.value = '';
                 setTimeout(() => {
-                    signupMessage.classList.add('hidden');
-                }, 3000); // Hide message after 3 seconds
-            } else {
-                // Optional: Add a more specific error message for invalid email
-                // For simplicity, we're just relying on browser's default validation for 'email' type
+                    signupMessage.classList.add('d-none');
+                }, 3000);
+            }
+        });
+
+        sidebarSignupForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const emailInput = this.querySelector('input[type="email"]');
+            if (emailInput.value && emailInput.checkValidity()) {
+                sidebarSignupMessage.classList.remove('d-none');
+                emailInput.value = '';
+                setTimeout(() => {
+                    sidebarSignupMessage.classList.add('d-none');
+                }, 3000);
             }
         });
 
@@ -364,19 +752,51 @@
         const backToTopButton = document.getElementById('back-to-top');
 
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) { // Show button after scrolling 300px
-                backToTopButton.classList.remove('hidden');
+            if (window.scrollY > 300) {
+                backToTopButton.classList.remove('d-none');
             } else {
-                backToTopButton.classList.add('hidden');
+                backToTopButton.classList.add('d-none');
             }
         });
 
         backToTopButton.addEventListener('click', () => {
             window.scrollTo({
                 top: 0,
-                behavior: 'smooth' // Smooth scroll to top
+                behavior: 'smooth'
             });
         });
+
+        // Blog Post "Layer Deeper" Functionality
+        const blogListSection = document.getElementById('blogs-section');
+        const blogPostDetailsContainer = document.getElementById('blog-post-details');
+        const backToBlogsButton = document.getElementById('back-to-blogs');
+
+        document.querySelectorAll('.read-more-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const postId = this.closest('.blog-post-card').dataset.postId;
+                showBlogPost(postId);
+            });
+        });
+
+        backToBlogsButton.addEventListener('click', function() {
+            hideAllBlogPosts();
+            blogListSection.classList.remove('d-none');
+            blogPostDetailsContainer.classList.add('d-none');
+        });
+
+        function showBlogPost(postId) {
+            hideAllBlogPosts();
+            blogListSection.classList.add('d-none'); // Hide the main blog list
+            blogPostDetailsContainer.classList.remove('d-none'); // Show the details container
+            document.getElementById(`${postId}-post`).classList.remove('d-none'); // Show the specific post
+            window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top of the post
+        }
+
+        function hideAllBlogPosts() {
+            document.querySelectorAll('#blog-post-details section').forEach(postSection => {
+                postSection.classList.add('d-none');
+            });
+        }
     </script>
 </body>
 </html>
